@@ -14,9 +14,8 @@ Beispiele:
 #include <DynamixelWorkbench.h>
 #include <Wire.h>
 #include "Adafruit_VL53L0X.h"
-#include "Deneyap_RenkDonusturme.h"
 
-Adafruit_VL53L0X tof[tof_zaeler];  // -> 8 Sensoren
+Adafruit_VL53L0X tof[tof_zaeler]; // -> 8 Sensoren
 
 #if defined(__OPENCM904__)
 #define DEVICE_NAME "3"
@@ -30,23 +29,6 @@ Adafruit_VL53L0X tof[tof_zaeler];  // -> 8 Sensoren
 #define DXL_ID_3 4
 #define DXL_ID_4 3
 
-#define ENABLE_PON 0x01
-#define ENABLE_AEN 0x02
-#define TCS_ADDR 0x29
-
-// Register
-#define ENABLE 0x00
-#define ATIME 0x01
-#define CONTROL 0x0F
-#define CDATAL 0x14
-#define CDATAH 0x15
-#define RDATAL 0x16
-#define RDATAH 0x17
-#define GDATAL 0x18
-#define GDATAH 0x19
-#define BDATAL 0x1A
-#define BDATAH 0x1B
-#define STATUS 0x13
 
 DynamixelWorkbench dxl_wb;
 
@@ -104,9 +86,9 @@ float new_zero = 0;
 float diff = 0;
 
 //---- TOFs ----
-int xshutPins[tof_zaeler] = { 0, 4, 5, 6, 7, 1, 2, 3 };  // jeweils eigener XSHUT-Pin
+int xshutPins[tof_zaeler] = {0, 4, 5, 6, 7, 1, 2, 3}; // jeweils eigener XSHUT-Pin
 //  Sensoren Nr beim Bot:    1, 2, 3, 4, 5, 6, 7, 8      alles -1 im Serial Monitor
-int addresses[tof_zaeler] = { 0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37 };  // neue Adressen
+int addresses[tof_zaeler] = {0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37}; // neue Adressen
 float distance[tof_zaeler];
 bool sensors_ready = false;
 
@@ -117,7 +99,7 @@ float SENSOR_INTERVAL = 50;
 //---- Wände ----
 bool wand_vorne = 0;
 bool wand_rechts = 0;
-bool wand_links = 0;
+bool wand_links  = 0;
 bool wand_hinten = 0;
 
 //---- Wandverfolger ----
@@ -129,10 +111,7 @@ float abstand_aktuell = 0;
 float abstand_fehler = 0;
 float korrektur = 0;
 
-//---- Farbsensor ----
-int Farbsensor_pin = 9;
-uint8_t r = 0;
-uint8_t g = 0;
-uint8_t b = 0;
-double h, s, v;
-char farbe = 0;
+//---- Kamera ----
+bool links = false;
+bool rechts = false;
+float timer_kamera = 0;

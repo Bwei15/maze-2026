@@ -82,11 +82,11 @@ void tofs_adressieren() {
 
     if (!tof[i].begin(addresses[i])) {  // immer erst Default-Adresse!
       Serial.print("Sensor ");
-      Serial.print(i + 1);
+      Serial.print(i+1);
       Serial.println(" nicht gestartet!");
-      digitalWrite(xshutPins[i], LOW);
-      delay(50);
-      continue;
+    digitalWrite(xshutPins[i], LOW);
+    delay(50);
+    continue;
     }
 
     tof[i].begin(addresses[i], false, &Wire, Adafruit_VL53L0X::VL53L0X_SENSE_HIGH_SPEED);  // jetzt neue Adresse setzen
@@ -105,7 +105,7 @@ void tofs_pruefen() {
   for (int i = 0; i < tof_zaeler; i++) {
     Wire.beginTransmission(addresses[i]);
     byte error = Wire.endTransmission();
-
+    
     if (error == 0) {
       Serial.print("[Check]      ToF ");
       Serial.print(i);
@@ -123,15 +123,4 @@ void tofs_pruefen() {
   } else {
     Serial.println("[System]     Alle ToFs bereit.");
   }
-}
-
-void farbsensor_starten() {
-  digitalWrite(Farbsensor_pin, HIGH);
-  delay(2000);
-  write8(ENABLE, ENABLE_PON);
-  delay(3);
-  write8(ENABLE, ENABLE_PON | ENABLE_AEN);
-  write8(CONTROL, 0x01);  // Gain x4
-
-  Serial.println("TCS34725 gestartet!");
 }

@@ -48,20 +48,3 @@ void quaternionToEuler(float q[4], float rpy[3])
   double cosy_cosp = 1 - 2 * (q[2] * q[2] + q[3] * q[3]);
   rpy[2] = atan2(siny_cosp, cosy_cosp);
 }
-
-void write8(uint8_t reg, uint8_t val) {
-  Wire.beginTransmission(TCS_ADDR);
-  Wire.write(0x80 | reg);  // COMMAND_BIT
-  Wire.write(val);
-  Wire.endTransmission();
-}
-
-uint16_t read16(uint8_t reg) {
-  Wire.beginTransmission(TCS_ADDR);
-  Wire.write(0x80 | reg);
-  Wire.endTransmission();
-  Wire.requestFrom(TCS_ADDR, (uint8_t)2);
-  uint16_t low = Wire.read();
-  uint16_t high = Wire.read();
-  return (high << 8) | low;
-}

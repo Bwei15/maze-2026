@@ -17,13 +17,11 @@ Später können hier neue Zustände ergänzt werden (z. B. Maze-Navigation).
 void kalibrierung() {
   Serial.println("\n \n[System]     Sensoren - kalibrieren...");
   pinMode(BDPIN_PUSH_SW_1, INPUT);
-  pinMode(Farbsensor_pin, OUTPUT);
+
   // WICHTIG: Kurze Wartezeit, damit sich die Batterie-Spannung stabilisiert
   delay(500);
 
   Wire.begin();
-  // --- Checkpoint 0: RESET ---
-  digitalWrite(Farbsensor_pin, LOW);
 
   // --- Checkpoint 1: Gyro Start ---
   gyro_kalibrieren();
@@ -55,19 +53,6 @@ void kalibrierung() {
   tone(BDPIN_BUZZER, 1000, 100);
   delay(200);
 
-  // --- Checkpoint 3: Farbsensor ---
-  farbsensor_starten();
-
-  // DEBUG-BEEP 4
-  tone(BDPIN_BUZZER, 1000, 100);
-  delay(150);
-  tone(BDPIN_BUZZER, 1000, 100);
-  delay(150);
-  tone(BDPIN_BUZZER, 1000, 100);
-  delay(200);
-  tone(BDPIN_BUZZER, 1000, 100);
-  delay(250);
-
   Serial.println("[System]     Sensoren - Fertig");
   setup_status = true;
   sensors_ready = true;
@@ -97,8 +82,6 @@ void start() {
     }
     melody_played = false;
   }
-  farbsensor_auslesen();
-  
   if (push_state == 1) {
     Serial.println("[System]     Drive");
     state = 2;
