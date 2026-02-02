@@ -18,7 +18,7 @@ void motoren_pruefen() {
     Serial.println(log);
     return;
   }
-  uint8_t ids[] = { dxl_id_1, dxl_id_2, dxl_id_3, dxl_id_4 };
+  uint8_t ids[] = {dxl_id_1, dxl_id_2, dxl_id_3, dxl_id_4};
   for (uint8_t i = 0; i < 4; i++) {
     uint16_t mn = 0;
     result = dxl_wb.ping(ids[i], &mn, &log);
@@ -44,7 +44,6 @@ void motoren_pruefen() {
     restart("Fehler bei den Motoren.", 0);
   }
 }
-
 
 void gyro_kalibrieren() {
   delay(2000);
@@ -80,7 +79,7 @@ void tofs_adressieren() {
     digitalWrite(xshutPins[i], HIGH);
     delay(50);
 
-    if (!tof[i].begin(addresses[i])) {  // immer erst Default-Adresse!
+    if (!tof[i].begin(addresses[i])) { // immer erst Default-Adresse!
       Serial.print("Sensor ");
       Serial.print(i + 1);
       Serial.println(" nicht gestartet!");
@@ -89,7 +88,9 @@ void tofs_adressieren() {
       continue;
     }
 
-    tof[i].begin(addresses[i], false, &Wire, Adafruit_VL53L0X::VL53L0X_SENSE_HIGH_SPEED);  // jetzt neue Adresse setzen
+    tof[i].begin(addresses[i], false, &Wire,
+                 Adafruit_VL53L0X::VL53L0X_SENSE_HIGH_SPEED); // jetzt neue
+                                                              // Adresse setzen
     Serial.print("Sensor ");
     Serial.print(i);
     Serial.print(" -> neue Adresse: 0x");
@@ -131,7 +132,7 @@ void farbsensor_starten() {
   write8(ENABLE, ENABLE_PON);
   delay(3);
   write8(ENABLE, ENABLE_PON | ENABLE_AEN);
-  write8(CONTROL, 0x01);  // Gain x4
+  write8(CONTROL, 0x01); // Gain x4
 
   Serial.println("TCS34725 gestartet!");
 }

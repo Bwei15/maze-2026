@@ -11,12 +11,12 @@ Beispiele:
 
 #define tof_zaeler 8
 
-#include <DynamixelWorkbench.h>
-#include <Wire.h>
 #include "Adafruit_VL53L0X.h"
 #include "Deneyap_RenkDonusturme.h"
+#include <DynamixelWorkbench.h>
+#include <Wire.h>
 
-Adafruit_VL53L0X tof[tof_zaeler];  // -> 8 Sensoren
+Adafruit_VL53L0X tof[tof_zaeler]; // -> 8 Sensoren
 
 #if defined(__OPENCM904__)
 #define DEVICE_NAME "3"
@@ -50,12 +50,10 @@ Adafruit_VL53L0X tof[tof_zaeler];  // -> 8 Sensoren
 
 DynamixelWorkbench dxl_wb;
 
-
-
 int state = 0;
 
 //-----
-//Events
+// Events
 bool start_pressed = false;
 bool front_blocked = false;
 bool right_open = false;
@@ -64,7 +62,6 @@ bool victim_seen = false;
 bool black_detected = false;
 bool blue_detected = false;
 bool no_progress = false;
-
 
 //----- Motoren ----
 bool result = false;
@@ -77,9 +74,8 @@ uint8_t dxl_id_4 = DXL_ID_4;
 
 //---- Melody ----
 bool melody_played = true;
-int melody[] = { 262, 196, 196, 220, 196, 0, 247, 262 };
-int noteDurations[] = { 4, 8, 8, 4, 4, 4, 4, 4 };
-
+int melody[] = {262, 196, 196, 220, 196, 0, 247, 262};
+int noteDurations[] = {4, 8, 8, 4, 4, 4, 4, 4};
 
 //---- Akku ----
 float vol_value;
@@ -104,9 +100,12 @@ float new_zero = 0;
 float diff = 0;
 
 //---- TOFs ----
-int xshutPins[tof_zaeler] = { 0, 4, 5, 6, 7, 1, 2, 3 };  // jeweils eigener XSHUT-Pin
-//  Sensoren Nr beim Bot:    1, 2, 3, 4, 5, 6, 7, 8      alles -1 im Serial Monitor
-int addresses[tof_zaeler] = { 0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37 };  // neue Adressen
+int xshutPins[tof_zaeler] = {0, 4, 5, 6,
+                             7, 1, 2, 3}; // jeweils eigener XSHUT-Pin
+//  Sensoren Nr beim Bot:    1, 2, 3, 4, 5, 6, 7, 8      alles -1 im Serial
+//  Monitor
+int addresses[tof_zaeler] = {0x30, 0x31, 0x32, 0x33,
+                             0x34, 0x35, 0x36, 0x37}; // neue Adressen
 float distance[tof_zaeler];
 bool sensors_ready = false;
 
@@ -128,6 +127,11 @@ float winkel_fehler = 0;
 float abstand_aktuell = 0;
 float abstand_fehler = 0;
 float korrektur = 0;
+
+//---- Kamera ----
+bool links = false;
+bool rechts = false;
+float timer_kamera = 0;
 
 //---- Farbsensor ----
 int Farbsensor_pin = 9;

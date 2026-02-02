@@ -39,6 +39,7 @@ void kachel(int anzahl) {
 
     while (distance[5] <= goal_tof) {
       tof_auslesen_fahren(2);
+      Kamera_auslesen();
 
       if ((distance[2] - distance[3]) > 30 || (distance[2] > 200) || (distance[3] > 200)) {
         drive(0, 100);
@@ -63,6 +64,7 @@ void kachel(int anzahl) {
 
     while (distance[0] >= goal_tof) {
       tof_auslesen_fahren(1);
+      Kamera_auslesen();
 
       if ((distance[2] - distance[3]) > 30 || (distance[2] > 200) || (distance[3] > 200)) {
         drive(0, 100);

@@ -18,6 +18,7 @@ void kalibrierung() {
   Serial.println("\n \n[System]     Sensoren - kalibrieren...");
   pinMode(BDPIN_PUSH_SW_1, INPUT);
   pinMode(Farbsensor_pin, OUTPUT);
+
   // WICHTIG: Kurze Wartezeit, damit sich die Batterie-Spannung stabilisiert
   delay(500);
 
@@ -74,8 +75,6 @@ void kalibrierung() {
   state = 1;
 }
 
-
-
 void start() {
   if (setup_status == true) {
     Serial.println("[Battery]    " + String(battery_voltage()) + "V");
@@ -98,7 +97,6 @@ void start() {
     melody_played = false;
   }
   farbsensor_auslesen();
-  
   if (push_state == 1) {
     Serial.println("[System]     Drive");
     state = 2;
@@ -113,11 +111,11 @@ void forward_search() {
   if (!wand_rechts) {
     abbiegen("rechts");
   } else if (!wand_vorne) {
-    vorwaerts();  // Wenn rechts Wand ist, aber vorne frei -> Geradeaus
+    vorwaerts(); // Wenn rechts Wand ist, aber vorne frei -> Geradeaus
   } else if (!wand_links) {
-    abbiegen("links");  // Nur wenn rechts UND vorne zu ist
+    abbiegen("links"); // Nur wenn rechts UND vorne zu ist
   } else {
-    abbiegen("drehen");  // Sackgasse
+    abbiegen("drehen"); // Sackgasse
   }
 }
 
@@ -171,7 +169,6 @@ void wanderkennung() {
   }
 
   // -------
-
 
   Serial.println("-------");
   if (wand_vorne) {

@@ -16,16 +16,14 @@ float battery_voltage() {
   return vol_value;
 }
 
-
 void restart(String reason, int delay) {
-  Serial.println("\n \n \n[System]     Neustarten - Grund: " + reason + "\n \n \n");
+  Serial.println("\n \n \n[System]     Neustarten - Grund: " + reason +
+                 "\n \n \n");
   delay(delay);
   state = 0;
 }
 
-
-void quaternionToEuler(float q[4], float rpy[3])
-{
+void quaternionToEuler(float q[4], float rpy[3]) {
   // orientation[0] = w
   // orientation[1] = x
   // orientation[2] = y
@@ -51,7 +49,7 @@ void quaternionToEuler(float q[4], float rpy[3])
 
 void write8(uint8_t reg, uint8_t val) {
   Wire.beginTransmission(TCS_ADDR);
-  Wire.write(0x80 | reg);  // COMMAND_BIT
+  Wire.write(0x80 | reg); // COMMAND_BIT
   Wire.write(val);
   Wire.endTransmission();
 }

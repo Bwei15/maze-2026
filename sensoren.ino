@@ -24,7 +24,7 @@ void sensoren_auslesen() {
 
 void gyro_auslesen() {
   imu.updateIMU();
-  float* orientation = imu.getOrientation();
+  float *orientation = imu.getOrientation();
   float rpy_winkel[3];
   quaternionToEuler(orientation, rpy_winkel);
 
@@ -64,27 +64,28 @@ void tof_auslesen_fahren(int modus) {
   }
 }
 
-void farbsensor_auslesen(){
+void farbsensor_auslesen() {
   r = read16(RDATAL) * pow(10, -1);
   g = read16(GDATAL) * pow(10, -1);
   b = read16(BDATAL) * pow(10, -1);
   ColorConverter::RgbToHsv(r, g, b, h, s, v);
-  if(v <= 0.22){
+  if (v <= 0.22) {
     farbe = 1;
-  } 
-  if(v >= 0.4){
+  }
+  if (v >= 0.4) {
     farbe = 2;
-  } 
+  }
   Serial.println(farbe);
   /*Serial.print(" R: "); Serial.print(r);
   Serial.print(" G: "); Serial.print(g);
   Serial.print(" B: "); Serial.print(b);
-  */Serial.print("Hue (0-255): ");
+  */
+  Serial.print("Hue (0-255): ");
   Serial.println(h);
   Serial.print("Saturation (0-255): ");
   Serial.println(s);
   Serial.print("Value (0-255): ");
   Serial.println(v);
-  
+
   delay(500);
 }
